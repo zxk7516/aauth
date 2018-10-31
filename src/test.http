@@ -1,0 +1,33 @@
+post http://localhost:3000/invitation  HTTP/1.1
+content-type: application/json
+
+{"email":"zxk7516@foxmail.com"}
+
+###
+post http://localhost:3000/register/5b9a4284-22c7-49f1-99c3-abbe30394644
+content-type: application/json
+
+{"password":"o"}
+
+
+
+###
+post http://localhost:3000/auth
+content-type: application/json
+
+{"password":"o","email":"zxk7516@foxmail.com"}
+
+
+###
+get http://localhost:3000/auth
+content-type: application/json
+cookie: auth=BqtidJ7F425jaQKGzXEgXBYCkQVigHSS9v2hbZS8hFt+lYfabigQFIuztooZ2shHFhR80fHxH3POVwmyIB0uM1QHt1sSkK1CohGMUg+CimnsSo2vY4h/JvEx62O8h5upBrQCeSeOvG0J+uJAt1xtARtJBs7xmLOdR8j0mZO6dEy3GeQF9mkq05gguwu0cYgb8hh8pptQEp9zznfIAJbC5TdW/suieCJNSmPmR16lfZkhx1QL6qVg/ZAPEz0MCQIrBH3qJik/9yii+bo6fM6xlTrvi0szfuO1rp7g6avuWX70wm65PiTKHXAP4E0D
+
+{"password":"o","email":"zxk7516@foxmail.com"}
+
+
+###
+delete http://localhost:3000/auth
+content-type: application/json
+cookie: auth=BqtidJ7F425jaQKGzXEgXBYCkQVigHSS9v2hbZS8hFt+lYfabigQFIuztooZ2shHFhR80fHxH3POVwmyIB0uM1QHt1sSkK1CohGMUg+CimnsSo2vY4h/JvEx62O8h5upBrQCeSeOvG0J+uJAt1xtARtJBs7xmLOdR8j0mZO6dEy3GeQF9mkq05gguwu0cYgb8hh8pptQEp9zznfIAJbC5TdW/suieCJNSmPmR16lfZkhx1QL6qVg/ZAPEz0MCQIrBH3qJik/9yii+bo6fM6xlTrvi0szfuO1rp7g6avuWX70wm65PiTKHXAP4E0D
+
