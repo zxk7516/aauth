@@ -3,7 +3,7 @@ use ::actix::{Handler, Message};
 use ::chrono::Local;
 use ::diesel::prelude::*;
 use crate::errors::ServiceError;
-use crate::models::{DbExecutor, Invitation, User, SlimUser};
+use crate::models::{DbExecutor, Invitation, User, UserInsert, SlimUser};
 use ::uuid::Uuid;
 use crate::utils::hash_password;
 
@@ -11,12 +11,14 @@ use crate::utils::hash_password;
 #[derive(Debug, Deserialize)]
 pub struct UserData {
     pub password: String,
+    pub name: String,
 }
 
 // to be used to send data via the Actix actor system
 #[derive(Debug)]
 pub struct RegisterUser {
     pub invitation_id: String,
+    pub name: String,
     pub password: String,
 }
 
@@ -46,7 +48,7 @@ impl Handler<RegisterUser> for DbExecutor {
                     if invitation.expires_at > Local::now().naive_local() {
                         // try hashing the password, else return the error that will be converted to ServiceError
                         let password: String = hash_password(&msg.password)?;
-                        let user = User::with_details(invitation.email, password);
+                        let user = UserInsert::with_details(msg.name, invitation.email, password);
                         let inserted_user: User = diesel::insert_into(users)
                             .values(&user)
                             .get_result(conn)?;

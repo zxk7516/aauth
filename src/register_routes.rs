@@ -11,6 +11,7 @@ pub fn register_user((invitation_id, user_data, state): (Path<String>, Json<User
         // into_inner() returns the inner string value from Path
         invitation_id: invitation_id.into_inner(),
         password: user_data.password.clone(),
+        name: user_data.name.clone(),
     };
 
     state.db.send(msg)

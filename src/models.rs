@@ -15,26 +15,39 @@ impl Actor for DbExecutor {
     type Context = SyncContext<Self>;
 }
 
-#[derive(Debug, Serialize, Deserialize, Queryable, Insertable)]
-#[table_name="users"]
+#[derive(Debug, Serialize, Deserialize, Queryable)]
 pub struct User {
+    pub id: i32,
+    pub name: String,
     pub email: String,
     pub password: String,
     pub created_at: NaiveDateTime,
 }
 
-impl User {
 
 
-    pub fn with_details(email: String, password: String) -> Self {
-        User {
+
+#[derive(Debug, Serialize, Deserialize, Queryable, Insertable)]
+#[table_name="users"]
+pub struct UserInsert {
+    pub name: String,
+    pub email: String,
+    pub password: String,
+    pub created_at: NaiveDateTime,
+}
+
+
+impl UserInsert {
+
+    pub fn with_details(name: String, email: String, password: String) -> Self {
+        Self {
+            name,
             email,
             password,
             created_at: Local::now().naive_local(),
         }
     }
 }
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SlimUser {
