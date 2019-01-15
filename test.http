@@ -4,7 +4,7 @@ content-type: application/json
 {"email":"zxk7516@foxmail.com"}
 
 ###
-post http://localhost:3000/register/5b9a4284-22c7-49f1-99c3-abbe30394644
+post http://localhost:3000/register/427afec5-6200-4aec-8eb8-aae7f26c4047
 content-type: application/json
 
 {"password":"o"}
