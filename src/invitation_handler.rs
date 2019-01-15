@@ -1,6 +1,7 @@
 // invitation_handler.rs
 use actix::{Handler, Message};
 use chrono::{Duration, Local};
+#[allow(unused_imports)]
 use diesel::result::{DatabaseErrorKind, Error::DatabaseError};
 use diesel::{self, prelude::*};
 use errors::ServiceError;
