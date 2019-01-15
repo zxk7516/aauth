@@ -1,12 +1,12 @@
 // invitation_handler.rs
-use actix::{Handler, Message};
-use chrono::{Duration, Local};
+use ::actix::{Handler, Message};
+use ::chrono::{Duration, Local};
 #[allow(unused_imports)]
-use diesel::result::{DatabaseErrorKind, Error::DatabaseError};
-use diesel::{self, prelude::*};
-use errors::ServiceError;
-use models::{DbExecutor, Invitation};
-use uuid::Uuid;
+use ::diesel::result::{DatabaseErrorKind, Error::DatabaseError};
+use ::diesel::{self, prelude::*};
+use crate::errors::ServiceError;
+use crate::models::{DbExecutor, Invitation};
+use ::uuid::Uuid;
 
 
 
@@ -23,7 +23,7 @@ impl Handler<CreateInvitation> for DbExecutor {
     type Result = Result<Invitation, ServiceError>;
 
     fn handle(&mut self,msg: CreateInvitation, _: &mut Self::Context) -> Self::Result {
-        use schema::invitations::dsl::*;
+        use crate::schema::invitations::dsl::*;
         let conn : &PgConnection = &self.0.get().unwrap();
 
         let new_inviation = Invitation {

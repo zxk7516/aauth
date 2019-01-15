@@ -1,7 +1,7 @@
-use actix_web::{error::ResponseError, HttpResponse};
+use ::actix_web::{error::ResponseError, HttpResponse};
 use std::convert::From;
-use diesel::result::{DatabaseErrorKind, Error};
-use uuid::ParseError;
+use ::diesel::result::{DatabaseErrorKind, Error};
+use ::uuid::ParseError;
 
 #[derive(Fail, Debug)]
 pub enum ServiceError {

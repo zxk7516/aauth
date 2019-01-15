@@ -1,11 +1,10 @@
-use actix::{Handler, Message};
-use diesel::prelude::*;
-use errors::ServiceError;
-use models::{DbExecutor, User, SlimUser};
-use bcrypt::verify;
-use actix_web::{FromRequest, HttpRequest, middleware::identity::RequestIdentity};
-use utils::decode_token;
-
+use ::actix::{Handler, Message};
+use ::diesel::prelude::*;
+use ::bcrypt::verify;
+use ::actix_web::{FromRequest, HttpRequest, middleware::identity::RequestIdentity};
+use crate::utils::decode_token;
+use crate::errors::ServiceError;
+use crate::models::{DbExecutor, User, SlimUser};
 #[derive(Debug, Deserialize)]
 pub struct AuthData {
     pub email: String,
@@ -20,7 +19,7 @@ impl Message for AuthData {
 impl Handler<AuthData> for DbExecutor {
     type Result = Result<SlimUser, ServiceError>;
     fn handle(&mut self, msg: AuthData, _: &mut Self::Context) -> Self::Result {
-        use schema::users::dsl::{users, email};
+        use crate::schema::users::dsl::{users, email};
         let conn: &PgConnection = &self.0.get().unwrap();
         let mismatch_error = Err(ServiceError::BadRequest("Username and Password don't match".into()));
 

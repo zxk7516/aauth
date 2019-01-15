@@ -1,11 +1,11 @@
 // register_handler.rs
-use actix::{Handler, Message};
-use chrono::Local;
-use diesel::prelude::*;
-use errors::ServiceError;
-use models::{DbExecutor, Invitation, User, SlimUser};
-use uuid::Uuid;
-use utils::hash_password;
+use ::actix::{Handler, Message};
+use ::chrono::Local;
+use ::diesel::prelude::*;
+use crate::errors::ServiceError;
+use crate::models::{DbExecutor, Invitation, User, SlimUser};
+use ::uuid::Uuid;
+use crate::utils::hash_password;
 
 // UserData is used to extract data from a post request by the client
 #[derive(Debug, Deserialize)]
@@ -29,8 +29,8 @@ impl Message for RegisterUser {
 impl Handler<RegisterUser> for DbExecutor {
     type Result = Result<SlimUser, ServiceError>;
     fn handle(&mut self, msg: RegisterUser, _: &mut Self::Context) -> Self::Result {
-        use schema::invitations::dsl::{invitations, id};
-        use schema::users::dsl::users;
+        use crate::schema::invitations::dsl::{invitations, id};
+        use crate::schema::users::dsl::users;
         let conn: &PgConnection = &self.0.get().unwrap();
 
         // try parsing the string provided by the user as url parameter

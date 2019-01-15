@@ -1,10 +1,10 @@
-use bcrypt::{hash, DEFAULT_COST};
-use errors::ServiceError;
+use ::bcrypt::{hash, DEFAULT_COST};
+use crate::errors::ServiceError;
 use std::env;
-use models::SlimUser;
+use crate::models::SlimUser;
 use std::convert::From;
 use jwt::{decode, encode, Header, Validation};
-use chrono::{Local, Duration};
+use ::chrono::{Local, Duration};
 
 
 pub fn hash_password(plain: &str) -> Result<String, ServiceError> {

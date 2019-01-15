@@ -1,10 +1,10 @@
 // invitation_routes.rs
 
-use actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, ResponseError, State};
-use futures::future::Future;
+use ::actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, ResponseError, State};
+use ::futures::future::Future;
 
-use app::AppState;
-use invitation_handler::CreateInvitation;
+use crate::app::AppState;
+use crate::invitation_handler::CreateInvitation;
 
 pub fn register_email((signup_invitation, state): (Json<CreateInvitation>, State<AppState>))
     -> FutureResponse<HttpResponse> {
