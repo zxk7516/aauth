@@ -3,17 +3,19 @@
 use actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, ResponseError, State};
 use futures::future::Future;
 
-use app::AppState;
-use invitation_handler::CreateInvitation;
+use crate::app::AppState;
+use crate::invitation_handler::CreateInvitation;
 
-pub fn register_email((signup_invitation, state): (Json<CreateInvitation>, State<AppState>))
-    -> FutureResponse<HttpResponse> {
+pub fn register_email(
+    (signup_invitation, state): (Json<CreateInvitation>, State<AppState>),
+) -> FutureResponse<HttpResponse> {
     state
         .db
         .send(signup_invitation.into_inner())
         .from_err()
-        .and_then( |db_response| match db_response {
+        .and_then(|db_response| match db_response {
             Ok(invitation) => Ok(HttpResponse::Ok().json(invitation)),
             Err(err) => Ok(err.error_response()),
-        }).responder()
+        })
+        .responder()
 }

@@ -1,11 +1,10 @@
+use crate::errors::ServiceError;
+use crate::models::SlimUser;
 use bcrypt::{hash, DEFAULT_COST};
-use errors::ServiceError;
-use std::env;
-use models::SlimUser;
-use std::convert::From;
+use chrono::{Duration, Local};
 use jwt::{decode, encode, Header, Validation};
-use chrono::{Local, Duration};
-
+use std::convert::From;
+use std::env;
 
 pub fn hash_password(plain: &str) -> Result<String, ServiceError> {
     // get the hashing cost from the env variable or use default
@@ -28,7 +27,6 @@ struct Claims {
     exp: i64,
     // user email
     email: String,
-
 }
 
 // struct to get converted to token and back
@@ -46,7 +44,9 @@ impl Claims {
 
 impl From<Claims> for SlimUser {
     fn from(claims: Claims) -> Self {
-        SlimUser { email: claims.email }
+        SlimUser {
+            email: claims.email,
+        }
     }
 }
 
