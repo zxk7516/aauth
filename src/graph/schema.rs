@@ -1,6 +1,7 @@
+use crate::models::DbExecutor;
+use actix::prelude::{Addr, Handler};
 use juniper::FieldResult;
 use juniper::RootNode;
-
 
 #[derive(GraphQLEnum)]
 enum Episode {
@@ -10,7 +11,7 @@ enum Episode {
 }
 
 #[derive(GraphQLObject)]
-#[graphql(description = "A humanoid creature in the Star Wars universe")]
+#[graphql(description = "星球大战宇宙中的人形生物")]
 struct Human {
     id: String,
     name: String,
@@ -19,14 +20,25 @@ struct Human {
 }
 
 #[derive(GraphQLInputObject)]
-#[graphql(description = "A humanoid creature in the Star Wars universe")]
+#[graphql(description = "星球大战宇宙中的人形生物")]
 struct NewHuman {
     name: String,
     appears_in: Vec<Episode>,
     home_planet: String,
 }
 
-pub struct QueryRoot;
+
+#[derive(GraphQLObject)]
+#[graphql(description = "站点文章")]
+struct Post {
+    id: i32,
+    title: String,
+    content: String,
+}
+
+pub struct QueryRoot {
+    db: Addr<DbExecutor>,
+}
 
 graphql_object!(QueryRoot: () |&self| {
     field human(&executor, id: String) -> FieldResult<Human> {
@@ -37,9 +49,20 @@ graphql_object!(QueryRoot: () |&self| {
             home_planet: "Mars".to_owned(),
         })
     }
+    field posts(&executor, id: String) -> FieldResult<Human> {
+        
+        Ok(Human{
+            id: "1234".to_owned(),
+            name: "Luke".to_owned(),
+            appears_in: vec![Episode::NewHope],
+            home_planet: "Mars".to_owned(),
+        })
+    }
 });
 
-pub struct MutationRoot;
+pub struct MutationRoot {
+    db: Addr<DbExecutor>,
+}
 
 graphql_object!(MutationRoot: () |&self| {
     field createHuman(&executor, new_human: NewHuman) -> FieldResult<Human> {
@@ -54,6 +77,9 @@ graphql_object!(MutationRoot: () |&self| {
 
 pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
 
-pub fn create_schema() -> Schema {
-    Schema::new(QueryRoot {}, MutationRoot {})
+pub fn create_schema(_db: Addr<DbExecutor>) -> Schema {
+    Schema::new(
+        QueryRoot { db: _db.clone() },
+        MutationRoot { db: _db.clone() },
+    )
 }

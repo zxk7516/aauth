@@ -21,6 +21,7 @@ mod graph;
 mod invitation_handler;
 mod invitation_routes;
 mod models;
+mod posts_handler;
 mod register_handler;
 mod register_routes;
 mod schema;
@@ -50,7 +51,7 @@ fn main() {
 
     let db_address: Addr<DbExecutor> = SyncArbiter::start(4, move || DbExecutor(pool.clone()));
 
-    let schema = std::sync::Arc::new(crate::graph::schema::create_schema());
+    let schema = std::sync::Arc::new(crate::graph::schema::create_schema(db_address.clone()));
     let graph_addrss = SyncArbiter::start(3, move || {
         crate::graph::routes::GraphQLExecutor::new(schema.clone())
     });
