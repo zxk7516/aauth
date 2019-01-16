@@ -1,11 +1,12 @@
-use crate::auth_routes::{get_me, login, logout};
-use crate::invitation_routes::register_email;
+use ::actix::prelude::Addr;
+use ::actix_web::{middleware::Logger, App, http::Method};
+use ::actix_web::middleware::identity::{CookieIdentityPolicy, IdentityService};
+use ::chrono::Duration;
+
 use crate::models::DbExecutor;
+use crate::invitation_routes::register_email;
 use crate::register_routes::register_user;
-use actix::prelude::Addr;
-use actix_web::middleware::identity::{CookieIdentityPolicy, IdentityService};
-use actix_web::{http::Method, middleware::Logger, App};
-use chrono::Duration;
+use crate::auth_routes::{login, logout, get_me};
 
 pub struct AppState {
     pub db: Addr<DbExecutor>,

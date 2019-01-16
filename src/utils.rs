@@ -1,10 +1,11 @@
+use ::bcrypt::{hash, DEFAULT_COST};
 use crate::errors::ServiceError;
-use crate::models::SlimUser;
-use bcrypt::{hash, DEFAULT_COST};
-use chrono::{Duration, Local};
-use jwt::{decode, encode, Header, Validation};
-use std::convert::From;
 use std::env;
+use crate::models::SlimUser;
+use std::convert::From;
+use jwt::{decode, encode, Header, Validation};
+use ::chrono::{Local, Duration};
+
 
 pub fn hash_password(plain: &str) -> Result<String, ServiceError> {
     // get the hashing cost from the env variable or use default

@@ -1,7 +1,7 @@
+use ::actix_web::{AsyncResponder, FutureResponse, HttpResponse, HttpRequest, ResponseError, Json};
+use ::actix_web::middleware::identity::RequestIdentity;
+use ::futures::future::Future;
 use crate::utils::create_token;
-use actix_web::middleware::identity::RequestIdentity;
-use actix_web::{AsyncResponder, FutureResponse, HttpRequest, HttpResponse, Json, ResponseError};
-use futures::future::Future;
 
 use crate::app::AppState;
 use crate::auth_handler::{AuthData, LoggedUser};

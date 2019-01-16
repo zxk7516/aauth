@@ -2,20 +2,9 @@
 // to avoid the warning from diesel macros
 #![allow(proc_macro_derive_resolution_fallback)]
 
-extern crate actix;
-extern crate actix_web;
-extern crate chrono;
-extern crate dotenv;
-extern crate futures;
-extern crate r2d2;
-extern crate serde;
-extern crate uuid;
-#[macro_use]
-extern crate diesel;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate failure;
+#[macro_use] extern crate diesel;
+#[macro_use] extern crate serde_derive;
+#[macro_use] extern crate failure;
 extern crate bcrypt;
 extern crate jsonwebtoken as jwt;
 
@@ -31,11 +20,11 @@ mod register_routes;
 mod schema;
 mod utils;
 
-use actix::prelude::*;
-use actix_web::server;
-use diesel::{r2d2::ConnectionManager, PgConnection};
-use dotenv::dotenv;
-use models::DbExecutor;
+use crate::models::DbExecutor;
+use ::actix::prelude::*;
+use ::actix_web::server;
+use ::diesel::{r2d2::ConnectionManager, PgConnection};
+use ::dotenv::dotenv;
 use std::env;
 
 fn main() {

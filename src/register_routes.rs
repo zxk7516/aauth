@@ -1,5 +1,5 @@
-use actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, Path, ResponseError, State};
-use futures::future::Future;
+use ::actix_web::{AsyncResponder, FutureResponse, HttpResponse, ResponseError, State, Json, Path};
+use ::futures::future::Future;
 
 use crate::app::AppState;
 use crate::register_handler::{RegisterUser, UserData};

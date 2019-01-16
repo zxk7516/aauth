@@ -1,7 +1,7 @@
 // invitation_routes.rs
 
-use actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, ResponseError, State};
-use futures::future::Future;
+use ::actix_web::{AsyncResponder, FutureResponse, HttpResponse, Json, ResponseError, State};
+use ::futures::future::Future;
 
 use crate::app::AppState;
 use crate::invitation_handler::CreateInvitation;

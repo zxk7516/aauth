@@ -1,10 +1,10 @@
 // register_handler.rs
-use actix::{Handler, Message};
-use chrono::Local;
-use diesel::prelude::*;
+use ::actix::{Handler, Message};
+use ::chrono::Local;
+use ::diesel::prelude::*;
 use crate::errors::ServiceError;
 use crate::models::{DbExecutor, Invitation, User, SlimUser};
-use uuid::Uuid;
+use ::uuid::Uuid;
 use crate::utils::hash_password;
 
 // UserData is used to extract data from a post request by the client

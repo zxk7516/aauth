@@ -1,10 +1,12 @@
-use crate::schema::{invitations, users};
-use actix::{Actor, SyncContext};
-use chrono::{Local, NaiveDateTime};
-use diesel::pg::PgConnection;
-use diesel::r2d2::{ConnectionManager, Pool};
+use ::actix::{Actor, SyncContext};
+use ::diesel::pg::PgConnection;
+use ::diesel::r2d2::{ConnectionManager, Pool};
+use ::uuid::Uuid;
+use ::chrono::{NaiveDateTime, Local};
 use std::convert::From;
-use uuid::Uuid;
+
+use crate::schema::{users,invitations};
+
 
 pub struct DbExecutor(pub Pool<ConnectionManager<PgConnection>>);
 
