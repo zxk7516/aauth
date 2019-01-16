@@ -23,7 +23,7 @@ impl Handler<CreateInvitation> for DbExecutor {
     type Result = Result<Invitation, ServiceError>;
 
     fn handle(&mut self,msg: CreateInvitation, _: &mut Self::Context) -> Self::Result {
-        use crate::schema::invitations::dsl::*;
+        use crate::schema::invitations::dsl::{email, invitations};
         let conn : &PgConnection = &self.0.get().unwrap();
 
         let new_inviation = Invitation {
